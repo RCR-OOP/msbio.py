@@ -1,5 +1,6 @@
 from struct import unpack
 from typing import IO, Literal, Dict, Any
+from .objects import int32, int64
 
 # ! Main Class
 class Decoder:
@@ -16,10 +17,10 @@ class Decoder:
         if type_id == 0:    #? bool
             return bool(unpack("!b", self.io.read(1))[0])
         elif type_id == 1:  #? int32
-            return int(unpack("!i", self.io.read(4))[0])
+            return int32(unpack("!i", self.io.read(4))[0])
         elif type_id == 2:  #? int64
-            return int(unpack("!q", self.io.read(8))[0])
-        elif type_id == 3:  #? float64
+            return int64(unpack("!q", self.io.read(8))[0])
+        elif type_id == 3:  #? float32
             return float(unpack("!f", self.io.read(4))[0])
         elif type_id == 4:  #? str
             length = unpack("!h", self.io.read(2))[0]
