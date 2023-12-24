@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "msbio.py"
+version = "0.1.0"
+description = "A module for reading/writing 'settings.bin' from Mindustry Server."
+repository = "https://github.com/RCR-OOP/msbio.py"
+authors = [
+    "Romanin <semina054@gmail.com>",
+    "TendingStream73 <sasasabaev679@gmail.com>"
+]
+license = "MIT"
+readme = "README.md"
+classifiers = [
+    "Operating System :: OS Independent"
+]
+packages = [{include = "msbio"}]
+
+[tool.poetry.dependencies]
+python = ">=3.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
