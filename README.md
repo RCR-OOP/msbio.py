@@ -12,5 +12,5 @@ pip install msbio
 import msbio
 
 with open('settings.bin', 'rb') as file:
-    data = msbio.read(file)
+    data = msbio.load(file)
 ```
