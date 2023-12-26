@@ -1,6 +1,5 @@
 from io import BytesIO
-from typing import IO, Dict, Any
-from _typeshed import ReadableBuffer
+from typing import IO, Dict, Any, SupportsBytes
 from .decoder import Decoder
 from .encoder import Encoder
 from .objects import ValidatedType
@@ -14,7 +13,7 @@ def load(
     return Decoder(io).load(errors, encoding)
 
 def loads(
-    data: ReadableBuffer,
+    data: SupportsBytes,
     encoding: str='utf-8',
     errors: str='ignore'
 ) -> Dict[str, ValidatedType]:

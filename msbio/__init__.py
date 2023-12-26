@@ -1,3 +1,3 @@
-from .msbio import load, loads
+from .msbio import load, loads, dump, dumps
 
-__all__ = ['load', 'loads']
+__all__ = ['load', 'loads', 'dump', 'dumps']
