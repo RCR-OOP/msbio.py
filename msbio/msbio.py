@@ -8,23 +8,23 @@ from .objects import ValidatedType
 def load(
     io: IO[bytes],
     encoding: str='utf-8',
-    errors: str='ignore'
+    errors: str='strict'
 ) -> Dict[str, ValidatedType]:
-    return Decoder(io).load(errors, encoding)
+    return Decoder(io).load(encoding, errors)
 
 def loads(
     data: SupportsBytes,
     encoding: str='utf-8',
-    errors: str='ignore'
+    errors: str='strict'
 ) -> Dict[str, ValidatedType]:
-    return Decoder(BytesIO(data)).load(errors, encoding)
+    return Decoder(BytesIO(data)).load(encoding, errors)
 
 # ! Dump Methods
 def dump(
     data: Dict[str, Any],
     io: IO[bytes],
     encoding: str='utf-8',
-    errors: str='ignore',
+    errors: str='strict',
     type_checking: bool=True
 ) -> None:
     return Encoder(io).dump(data, encoding, errors, type_checking)
@@ -32,7 +32,7 @@ def dump(
 def dumps(
     data: Dict[str, Any],
     encoding: str='utf-8',
-    errors: str='ignore',
+    errors: str='strict',
     type_checking: bool=True
 ) -> bytes:
     encoder = Encoder(BytesIO())

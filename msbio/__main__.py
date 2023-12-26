@@ -2,9 +2,13 @@ import time
 import msbio
 import click
 import pprint
+import hashlib
 from rich.console import Console
 
-# ! Console
+# ! Constants Vars
+BUFFER_SIZE = 64 * 1024
+
+# ! Vars
 console = Console()
 
 # ! Other Methods
@@ -13,6 +17,9 @@ def log(chap: str, chap_style: str, msg: str) -> None:
 
 def info(msg: str):
     log("info", "green", msg)
+
+def warn(msg: str):
+    log("warn", "#ffa500", msg)
 
 # ! Main Method
 def main(
@@ -35,6 +42,25 @@ def main(
     with open("log.txt", "wb") as file:
         file.write(pprint.pformat(data).encode())
     info("Done!")
+    
+    info(f"Hashing for {repr(from_filepath)}")
+    with open(from_filepath, 'rb') as file:
+        from_file_sha1 = hashlib.sha1(usedforsecurity=False)
+        while len(data:=file.read(BUFFER_SIZE)) > 0:
+            from_file_sha1.update(data)
+    info(f"Hash SHA1 for {repr(from_filepath)}: {repr(from_file_sha1.hexdigest())}")
+    
+    info(f"Hashing for {repr(to_filepath)}")
+    with open(to_filepath, 'rb') as file:
+        to_file_sha1 = hashlib.sha1(usedforsecurity=False)
+        while len(data:=file.read(BUFFER_SIZE)) > 0:
+            to_file_sha1.update(data)
+    info(f"Hash SHA1 for {repr(to_filepath)}: {repr(to_file_sha1.hexdigest())}")
+    
+    if to_file_sha1.digest() != from_file_sha1.digest():
+        warn("The hash of the files does not match.")
+    else:
+        info("It's all good!")
 
 # ! CLI Main Method
 @click.command

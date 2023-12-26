@@ -17,7 +17,7 @@ class Encoder:
         self,
         value: ValidatedType,
         encoding: str='utf-8',
-        errors: str='ignore'
+        errors: str='strict'
     ) -> bytes:
         if isinstance(value, bool):
             return pack("!b", 0) + pack("!b", value)
@@ -42,7 +42,7 @@ class Encoder:
         self,
         data: Dict[str, ValidatedType],
         encoding: str='utf-8',
-        errors: str='ignore',
+        errors: str='strict',
         type_checking: bool=True
     ) -> None:
         assert isinstance(data, dict)

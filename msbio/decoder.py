@@ -11,8 +11,8 @@ class Decoder:
     def decode(
         self,
         type_id: Literal[0, 1, 2, 3, 4, 5],
-        errors: str='ignore',
-        encoding: str='utf-8'
+        encoding: str='utf-8',
+        errors: str='strict'
     ) -> Any:
         if type_id == 0:    #? bool
             return bool(unpack("!b", self.io.read(1))[0])
@@ -32,8 +32,8 @@ class Decoder:
     
     def load(
         self,
-        errors: str='ignore',
-        encoding: str='utf-8'
+        encoding: str='utf-8',
+        errors: str='strict'
     ) -> Dict[str, Any]:
         data = {}
         count = unpack("!i", self.io.read(4))[0]
@@ -41,5 +41,5 @@ class Decoder:
             length = unpack("!h", self.io.read(2))[0]
             key = self.io.read(length).decode(encoding, errors)
             type_id = unpack("!b", self.io.read(1))[0]
-            data[key] = self.decode(type_id)
+            data[key] = self.decode(type_id, encoding, errors)
         return data
