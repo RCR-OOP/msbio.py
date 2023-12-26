@@ -21,7 +21,7 @@ def loads(
 
 # ! Dump Methods
 def dump(
-    data: Dict[str, Any],
+    data: Dict[str, ValidatedType],
     io: IO[bytes],
     encoding: str='utf-8',
     errors: str='strict',
@@ -30,7 +30,7 @@ def dump(
     return Encoder(io).dump(data, encoding, errors, type_checking)
 
 def dumps(
-    data: Dict[str, Any],
+    data: Dict[str, ValidatedType],
     encoding: str='utf-8',
     errors: str='strict',
     type_checking: bool=True
