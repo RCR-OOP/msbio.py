@@ -28,7 +28,7 @@ class Encoder:
         elif isinstance(value, float):
             return pack("!b", 3) + pack("!f", value)
         elif isinstance(value, str):
-            return pack("!b", 4) + pack("!h", len(value)) + value.encode(encoding, errors)
+            return pack("!b", 4) + pack("!h", len(value.encode(encoding, errors))) + value.encode(encoding, errors)
         elif isinstance(value, bytes):
             return pack("!b", 5) + pack("!i", len(value)) + value
         raise TypeError(f"This type is not supported: {type(value)}.")
@@ -51,5 +51,5 @@ class Encoder:
         self.io.write(pack("!i", len(data)))
         for key, value in data.items():
             self.io.write(
-                pack("!h", len(key)) + key.encode(encoding, errors) + self.encode(value, encoding, errors)
+                pack("!h", len(key.encode(encoding, errors))) + key.encode(encoding, errors) + self.encode(value, encoding, errors)
             )
